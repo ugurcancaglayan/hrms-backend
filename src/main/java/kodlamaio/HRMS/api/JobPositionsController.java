@@ -1,6 +1,9 @@
 package kodlamaio.HRMS.api;
 
 import kodlamaio.HRMS.business.abstracts.JobPositionService;
+import kodlamaio.HRMS.core.services.mernisService.MernisService;
+import kodlamaio.HRMS.core.utilities.results.DataResult;
+import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,18 +12,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobpositions")
-public class JobPositionsController {
+public class JobPositionsController extends MernisService {
 
-    @Autowired
     private JobPositionService jobPositionService;
 
+    @Autowired
+    public JobPositionsController(JobPositionService jobPositionService) {
+        this.jobPositionService = jobPositionService;
+    }
+
     @GetMapping("/getall")
-    public List<JobPosition> getAll() {
-        return jobPositionService.getAll();
+    public DataResult<List<JobPosition>> getAll() {
+        return this.jobPositionService.getAll();
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody JobPosition jobPosition) {
-        jobPositionService.add(jobPosition);
+    public Result add(@RequestBody JobPosition jobPosition) {
+        return this.jobPositionService.add(jobPosition);
     }
 }
