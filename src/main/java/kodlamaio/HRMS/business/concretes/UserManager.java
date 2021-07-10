@@ -1,10 +1,7 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.UserService;
-import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
-import kodlamaio.HRMS.core.utilities.results.SuccessResult;
+import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.UserDao;
 import kodlamaio.HRMS.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,7 @@ public class UserManager implements UserService {
 
     @Autowired
     public UserManager(UserDao userDao) {
-
+        this.userDao = userDao;
     }
 
     @Override
@@ -34,4 +31,5 @@ public class UserManager implements UserService {
                 this.userDao.findAll(),
                 "Kullanıcılar listelendi.");
     }
+
 }
