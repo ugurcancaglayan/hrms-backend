@@ -1,10 +1,7 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.JobPositionService;
-import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
-import kodlamaio.HRMS.core.utilities.results.SuccessResult;
+import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.JobPositionDao;
 import kodlamaio.HRMS.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +20,28 @@ public class JobPositionManager implements JobPositionService {
     }
 
     @Override
-    public DataResult<List<JobPosition>> getAll() {
-        return new SuccessDataResult<>(
-                this.jobPositionDao.findAll(),
-                "İş pozisyonları listelendi.");
+    public Result add(JobPosition jobPosition) {
+        if (jobPositionDao.findByPosition(jobPosition.getPosition()) != null) {
+            return new ErrorResult("Bu iş pozisyonu zaten sistemde kayıtlı!");
+        }
+        this.jobPositionDao.save(jobPosition);
+        return new SuccessResult("İş pozisyonu eklendi!");
     }
 
     @Override
-    public Result add(JobPosition jobPosition) {
-        this.jobPositionDao.save(jobPosition);
-        return new SuccessResult("İş pozisyonu eklendi.");
+    public Result deleteById(int id) {
+        if (!jobPositionDao.findById(id).isPresent()) {
+            return new ErrorResult("Bu iş pozisyonu zaten silinmiş veya sistemde kayıtlı değil!");
+        }
+        this.jobPositionDao.deleteById(id);
+        return new SuccessResult("İş pozisyonu silindi!");
+    }
+
+    @Override
+    public DataResult<List<JobPosition>> getAll() {
+        return new SuccessDataResult<>(
+                this.jobPositionDao.findAll(),
+                "İş pozisyonları listelendi!");
     }
 
 }

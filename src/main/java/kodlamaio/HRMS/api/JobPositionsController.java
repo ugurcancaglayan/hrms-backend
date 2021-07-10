@@ -21,13 +21,19 @@ public class JobPositionsController extends MernisService {
         this.jobPositionService = jobPositionService;
     }
 
-    @GetMapping("/getall")
-    public DataResult<List<JobPosition>> getAll() {
-        return this.jobPositionService.getAll();
-    }
-
     @PostMapping("/add")
     public Result add(@RequestBody JobPosition jobPosition) {
         return this.jobPositionService.add(jobPosition);
     }
+
+    @PostMapping("/delete")
+    public Result deleteById(@RequestParam int id) {
+        return this.jobPositionService.deleteById(id);
+    }
+
+    @GetMapping("/getAll")
+    public DataResult<List<JobPosition>> getAll() {
+        return this.jobPositionService.getAll();
+    }
+
 }
