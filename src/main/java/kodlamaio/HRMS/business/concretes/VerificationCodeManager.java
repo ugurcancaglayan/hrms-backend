@@ -1,10 +1,8 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.VerificationCodeService;
-import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
-import kodlamaio.HRMS.core.utilities.results.SuccessResult;
+import kodlamaio.HRMS.core.services.validationService.GenerateRandomCode;
+import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.VerificationCodeDao;
 import kodlamaio.HRMS.entities.concretes.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +28,35 @@ public class VerificationCodeManager implements VerificationCodeService {
     }
 
     @Override
-    public Result add(VerificationCode verificationCode) {
-        this.verificationCodeDao.save(verificationCode);
-            return new SuccessResult("Doğrulama kodu başarıyla eklendi.");
+    public void generateCode(VerificationCode verificationCode, Integer id) {
+
+        GenerateRandomCode generator = new GenerateRandomCode();
+        String createCode = generator.create();
+        verificationCode.setActivationCode(createCode);
+        verificationCode.setUserId(id);
+
+        verificationCodeDao.save(verificationCode);
     }
+
+    @Override
+    public Result verify(String verificationCode, Integer id) {
+
+        VerificationCode verify = verificationCodeDao.findByUserId(id).stream().findFirst().get();
+
+        if (verify.getActivationCode().equals(verificationCode) && verify.isVerified() != true) {
+            verify.setVerified(true);
+            this.verificationCodeDao.save(verify);
+            return new SuccessResult("Kullanıcı doğrulandı.");
+        }
+        if (!verify.getActivationCode().equals(verificationCode)) {
+            return new ErrorResult("Doğrulama kodu geçersiz.");
+        }
+        if (verify.isVerified() == true) {
+            return new ErrorResult("Hesap zaten doğrulanmış.");
+        }
+        else {
+            return new ErrorResult("beklenmedik hata");
+        }
+    }
+
 }

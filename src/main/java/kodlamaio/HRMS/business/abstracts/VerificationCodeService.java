@@ -10,5 +10,7 @@ import java.util.List;
 @Service
 public interface VerificationCodeService {
     DataResult<List<VerificationCode>> getAll();
-    Result add(VerificationCode verificationCode);
+
+    void generateCode(VerificationCode verificationCode, Integer id);
+    Result verify(String verificationCode, Integer id);
 }
