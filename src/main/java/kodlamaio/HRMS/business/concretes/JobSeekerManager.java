@@ -3,33 +3,28 @@ package kodlamaio.HRMS.business.concretes;
 import kodlamaio.HRMS.business.abstracts.JobSeekerService;
 import kodlamaio.HRMS.business.abstracts.VerificationCodeService;
 import kodlamaio.HRMS.core.services.mernisService.MernisService;
-import kodlamaio.HRMS.core.services.validationService.ValidationService;
 import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.JobSeekerDao;
-import kodlamaio.HRMS.dataAccess.abstracts.VerificationCodeDao;
 import kodlamaio.HRMS.entities.concretes.JobSeeker;
 import kodlamaio.HRMS.entities.concretes.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
+import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {
 
     private JobSeekerDao jobSeekerDao;
     private VerificationCodeService verificationCodeService;
-    private ValidationService validationService;
     VerificationCode verificationCode = new VerificationCode();
 
     @Autowired
-    public JobSeekerManager(JobSeekerDao jobSeekerDao, VerificationCodeService verificationCodeService, ValidationService validationService) {
+    public JobSeekerManager(JobSeekerDao jobSeekerDao, VerificationCodeService verificationCodeService) {
         this.jobSeekerDao = jobSeekerDao;
         this.verificationCodeService = verificationCodeService;
-        this.validationService = validationService;
     }
 
     public boolean validationJobSeeker(JobSeeker jobSeeker) throws MalformedURLException {
@@ -37,7 +32,7 @@ public class JobSeekerManager implements JobSeekerService {
                 jobSeeker.getNationalId(),
                 jobSeeker.getFirstName(),
                 jobSeeker.getLastName(),
-                jobSeeker.getDateOfBirth())) {
+                jobSeeker.getDateOfBirth().getYear())) {
             return true;
         }
         return false;
@@ -47,7 +42,7 @@ public class JobSeekerManager implements JobSeekerService {
         if (jobSeeker.getFirstName() != null &&
             jobSeeker.getLastName() != null &&
             jobSeeker.getNationalId() != 0 &&
-            jobSeeker.getDateOfBirth() != 0 &&
+            jobSeeker.getDateOfBirth().getYear() != 0 &&
             jobSeeker.getEmail() != null &&
             jobSeeker.getPassword() != null &&
             confirmPassword != null) {
@@ -63,9 +58,9 @@ public class JobSeekerManager implements JobSeekerService {
                 return new ErrorResult("Eksik bilgiler mevcut. " +
                         "Tüm boşlukları doldurunuz!");
             }
-            if (!validationJobSeeker(jobSeeker)) {
+            /*if (!validationJobSeeker(jobSeeker)) {
                 return new ErrorResult("Girdiğiniz kimlik bilgileri hatalı!");
-            }
+            }*/
             if (jobSeekerDao.findByEmail(jobSeeker.getEmail()) != null) {
                 return new ErrorResult("Bu e-posta adresi zaten kayıtlı!");
             }
@@ -77,8 +72,8 @@ public class JobSeekerManager implements JobSeekerService {
             }
 
             this.jobSeekerDao.save(jobSeeker);
-            this.validationService.generateCode(new VerificationCode(), jobSeeker.getId());
-            verificationCode.setVerified(true);
+            /*this.verificationCodeService.generateCode(new VerificationCode(), jobSeeker.getId());
+            verificationCode.setVerified(true);*/
             return new SuccessResult("İş arayan kullanıcı eklendi.");
     }
 
@@ -88,4 +83,5 @@ public class JobSeekerManager implements JobSeekerService {
                 this.jobSeekerDao.findAll(),
                 "İş arayan kullanıcılar listelendi.");
     }
+
 }

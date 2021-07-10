@@ -27,8 +27,9 @@ public class JobSeekersController {
         return this.jobSeekerService.add(jobSeeker, confirmPassword);
     }
 
-    @GetMapping("/getall")
+    @GetMapping("/getAll")
     public DataResult<List<JobSeeker>> getAll() {
         return this.jobSeekerService.getAll();
     }
+
 }

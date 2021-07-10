@@ -6,14 +6,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@PrimaryKeyJoinColumn(name = "id")
 @Table(name = "job_seekers")
 public class JobSeeker extends User {
 
@@ -27,5 +30,5 @@ public class JobSeeker extends User {
     private long nationalId;
 
     @Column(name = "date_of_birth")
-    private int dateOfBirth;
+    private LocalDateTime dateOfBirth;
 }
