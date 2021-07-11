@@ -26,13 +26,23 @@ public class JobAdvertisementController {
     }
 
     @GetMapping("getAllActive")
-    public DataResult<List<JobAdvertisement>> findAllByIsActive(boolean isActive) {
-        return this.jobAdvertisementService.findAllByIsActive(isActive);
+    public DataResult<List<JobAdvertisement>> findAllByIsActive( ) {
+        return this.jobAdvertisementService.findAllByIsActive();
     }
 
     @GetMapping("getAllActiveSorted")
-    public DataResult<List<JobAdvertisement>> findAllByIsActiveOrderByCreatedDateDesc(boolean isActive) {
-        return this.jobAdvertisementService.findAllByIsActiveOrderByCreatedDateDesc(isActive);
+    public DataResult<List<JobAdvertisement>> findAllByIsActiveOrderByCreatedDateDesc() {
+        return this.jobAdvertisementService.findAllByIsActiveOrderByCreatedDateDesc();
+    }
+
+    @GetMapping("getEmployersActiveJobAdvertisement")
+    public DataResult<List<JobAdvertisement>> getEmployersActiveJobAdvertisement(int id) {
+        return this.jobAdvertisementService.getEmployersActiveJobAdvertisement(id);
+    }
+
+    @GetMapping("setJobAdvertisementDisabled")
+    public DataResult<JobAdvertisement> setJobAdvertisementDisabled(int id) {
+        return this.jobAdvertisementService.setJobAdvertisementDisabled(id);
     }
 
 }

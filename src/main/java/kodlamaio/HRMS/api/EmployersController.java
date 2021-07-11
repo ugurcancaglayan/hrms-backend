@@ -4,6 +4,8 @@ import kodlamaio.HRMS.business.abstracts.EmployerService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.entities.concretes.Employer;
+import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
+import kodlamaio.HRMS.entities.concretes.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,4 +31,5 @@ public class EmployersController {
     public DataResult<List<Employer>> getAll() {
         return this.employerService.getAll();
     }
+
 }
