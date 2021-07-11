@@ -34,6 +34,7 @@ public class VerificationCodeManager implements VerificationCodeService {
         String createCode = generator.create();
         verificationCode.setActivationCode(createCode);
         verificationCode.setUserId(id);
+        verificationCode.setVerified(true);
 
         verificationCodeDao.save(verificationCode);
     }
@@ -43,20 +44,19 @@ public class VerificationCodeManager implements VerificationCodeService {
 
         VerificationCode verify = verificationCodeDao.findByUserId(id).stream().findFirst().get();
 
-        if (verify.getActivationCode().equals(verificationCode) && verify.isVerified() != true) {
-            verify.setVerified(true);
-            this.verificationCodeDao.save(verify);
-            return new SuccessResult("Kullanıcı doğrulandı.");
+        if (verificationCodeDao.findById(id).isPresent() || verificationCodeDao.findByUserId(id).isEmpty()) {
+            return new ErrorResult("Id değerini yanlış veya boş girdiniz!");
         }
         if (!verify.getActivationCode().equals(verificationCode)) {
             return new ErrorResult("Doğrulama kodu geçersiz.");
         }
         if (verify.isVerified() == true) {
             return new ErrorResult("Hesap zaten doğrulanmış.");
+        } else /*(verify.getActivationCode().equals(verificationCode) && verify.isVerified() != true) */ {
+            verify.setVerified(true);
+            this.verificationCodeDao.save(verify);
+            return new SuccessResult("Kullanıcı doğrulandı.");
         }
-        else {
-            return new ErrorResult("beklenmedik hata");
-        }
-    }
 
+    }
 }

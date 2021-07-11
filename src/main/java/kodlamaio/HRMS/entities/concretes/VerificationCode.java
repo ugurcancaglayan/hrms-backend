@@ -27,8 +27,8 @@ public class VerificationCode {
     @Column(name = "is_verified")
     private boolean isVerified;
 
-    public boolean isVerified() {
+    /*public boolean isVerified() {
         return this.isVerified;
-    }
+    }*/
 
 }
