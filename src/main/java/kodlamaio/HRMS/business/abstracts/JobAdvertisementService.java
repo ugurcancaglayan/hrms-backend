@@ -10,8 +10,12 @@ public interface JobAdvertisementService {
 
     Result add(JobAdvertisement jobAdvertisement);
 
-    DataResult<List<JobAdvertisement>> findAllByIsActive(boolean isActive);
+    DataResult<List<JobAdvertisement>> findAllByIsActive();
 
-    DataResult<List<JobAdvertisement>> findAllByIsActiveOrderByCreatedDateDesc(boolean isActive);
+    DataResult<List<JobAdvertisement>> findAllByIsActiveOrderByCreatedDateDesc();
+
+    DataResult<List<JobAdvertisement>> getEmployersActiveJobAdvertisement(int id);
+
+    DataResult<JobAdvertisement> setJobAdvertisementDisabled(int id);
 
 }

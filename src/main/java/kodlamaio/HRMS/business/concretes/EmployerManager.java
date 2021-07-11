@@ -4,7 +4,10 @@ import kodlamaio.HRMS.business.abstracts.EmployerService;
 import kodlamaio.HRMS.business.abstracts.VerificationCodeService;
 import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.EmployerDao;
+import kodlamaio.HRMS.dataAccess.abstracts.VerificationCodeDao;
 import kodlamaio.HRMS.entities.concretes.Employer;
+import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
+import kodlamaio.HRMS.entities.concretes.JobSeeker;
 import kodlamaio.HRMS.entities.concretes.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,23 +21,23 @@ public class EmployerManager implements EmployerService {
 
     private EmployerDao employerDao;
     private VerificationCodeService verificationCodeService;
-    VerificationCode verificationCode = new VerificationCode();
+    private VerificationCodeDao verificationCodeDao;
 
     @Autowired
-    public EmployerManager(EmployerDao employerDao, VerificationCodeService verificationCodeService) {
+    public EmployerManager(EmployerDao employerDao, VerificationCodeService verificationCodeService, VerificationCodeDao verificationCodeDao) {
         this.employerDao = employerDao;
         this.verificationCodeService = verificationCodeService;
+        this.verificationCodeDao = verificationCodeDao;
     }
 
     public boolean checkEmail(Employer employer) {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(employer.getEmail());
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             new ErrorResult("Geçersiz Email Adresi");
             return false;
-        }
-        else if(!employer.getEmail().contains(employer.getWebSite())) {
+        } else if (!employer.getEmail().contains(employer.getWebSite())) {
             new ErrorResult("Domain adresi girmek zorundasınız");
             return false;
         }
@@ -49,16 +52,30 @@ public class EmployerManager implements EmployerService {
 
         Pattern pattern = Pattern.compile(patterns);
         Matcher matcher = pattern.matcher(employer.getPhoneNumber());
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             return false;
         }
         return true;
+    }
 
+    public boolean checkNullInfoForEmployer(Employer employer, String confirmPassword) {
+        if (employer.getEmail() != null &&
+            employer.getCompanyName() != null &&
+            employer.getPassword() != null &&
+            employer.getPhoneNumber() != null &&
+            confirmPassword != null) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Result add(Employer employer, String confirmPassword) {
 
+        if (!checkNullInfoForEmployer(employer, confirmPassword)) {
+            return new ErrorResult("Eksik bilgiler mevcut. " +
+                    "Tüm boşlukları doldurunuz!");
+        }
         if (!checkEmail(employer)) {
             return new ErrorResult("Email hatası!");
         }
@@ -74,7 +91,6 @@ public class EmployerManager implements EmployerService {
 
         this.employerDao.save(employer);
         this.verificationCodeService.generateCode(new VerificationCode(), employer.getId());
-        verificationCode.setVerified(true);
         return new SuccessResult("İş veren eklendi!");
     }
 

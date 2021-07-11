@@ -10,5 +10,7 @@ import java.util.List;
 @Service
 public interface EmployerService {
     Result add(Employer employer, String confirmPassword);
+
     DataResult<List<Employer>> getAll();
+
 }
