@@ -1,6 +1,5 @@
 package kodlamaio.HRMS.dataAccess.abstracts;
 
-import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
