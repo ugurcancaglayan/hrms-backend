@@ -4,12 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -20,7 +15,7 @@ import java.util.Date;
 @Table(name = "job_seekers")
 public class JobSeeker extends User {
 
-    @Column(name = "first_name")
+    @Column(unique = true, name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
@@ -30,5 +25,6 @@ public class JobSeeker extends User {
     private long nationalId;
 
     @Column(name = "date_of_birth")
-    private LocalDateTime dateOfBirth;
+    private Date dateOfBirth;
+
 }
