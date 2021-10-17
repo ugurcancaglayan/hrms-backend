@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface JobPositionService {
-    DataResult<List<JobPosition>> getAll();
     Result add(JobPosition jobPosition);
     Result deleteById(int id);
+    DataResult<List<JobPosition>> getAll();
 }
