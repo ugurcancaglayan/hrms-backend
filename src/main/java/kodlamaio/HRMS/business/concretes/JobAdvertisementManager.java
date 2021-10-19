@@ -24,46 +24,46 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     @Override
     public Result add(JobAdvertisement jobAdvertisement) {
         this.jobAdvertisementDao.save(jobAdvertisement);
-        return new SuccessResult("İş ilanı sisteme eklendi.");
+        return new SuccessResult("Job advertisement saved successfully.");
     }
 
     @Override
     public DataResult<List<JobAdvertisement>> findAllByIsActive() {
         return new SuccessDataResult<List<JobAdvertisement>>(
                 this.jobAdvertisementDao.findAllByIsActive(true),
-                "Aktif iş ilanları listelendi.");
+                "Active job advertisement listed successfully.");
     }
 
     @Override
     public DataResult<List<JobAdvertisement>> findAllByIsActiveOrderByCreatedDateDesc() {
         return new SuccessDataResult<List<JobAdvertisement>>(
                 this.jobAdvertisementDao.findAllByIsActiveOrderByCreatedDateDesc(true),
-                "İş ilanları tarihe göre listelendi.");
+                "Job advertisements are listed by date.");
     }
 
     @Override
     public DataResult<List<JobAdvertisement>> getEmployersActiveJobAdvertisement(int id) {
 
         if (this.jobAdvertisementDao.existsByEmployerId(id).isEmpty()) {
-            return new ErrorDataResult<List<JobAdvertisement>>("İş veren bulunamadı.");
+            return new ErrorDataResult<List<JobAdvertisement>>("Employer not found.");
         }
         return new SuccessDataResult<List<JobAdvertisement>>(
                 this.jobAdvertisementDao.getEmployersActiveJobAdvertisement(id),
-                "İş verenin aktif iş ilanları listelendi.");
+                "Active job advertisements of the employer are listed.");
     }
 
     @Override
     public DataResult<JobAdvertisement> setJobAdvertisementDisabled(int id) {
 
         if (!this.jobAdvertisementDao.findById(id).isPresent()) {
-            return new ErrorDataResult<JobAdvertisement>("İş ilanı bulunamadı.");
+            return new ErrorDataResult<JobAdvertisement>("Job advertisement not found.");
         }
         if (!this.jobAdvertisementDao.alreadyDisabled(id).isEmpty()) {
-            return new ErrorDataResult<JobAdvertisement>("İş ilanı zaten pasif durumda.");
+            return new ErrorDataResult<JobAdvertisement>("Job advertisement is already inactive.");
         }
         JobAdvertisement jobAdvertisement = jobAdvertisementDao.getById(id);
         jobAdvertisement.setActive(false);
         return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.save(jobAdvertisement),
-                "İş ilanı pasif olarak ayarlandı.");
+                "Job advertisement is set to passive.");
     }
 }

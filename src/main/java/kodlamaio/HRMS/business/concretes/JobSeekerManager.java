@@ -38,50 +38,39 @@ public class JobSeekerManager implements JobSeekerService {
         return false;
     }
 
-    public boolean checkNullInfoForJobSeeker(JobSeeker jobSeeker, String confirmPassword) {
-        if (jobSeeker.getFirstName() != null &&
-            jobSeeker.getLastName() != null &&
-            jobSeeker.getNationalId() != 0 &&
-            jobSeeker.getDateOfBirth().getYear() != 0 &&
-            jobSeeker.getEmail() != null &&
-            jobSeeker.getPassword() != null &&
-            confirmPassword != null) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public Result add(JobSeeker jobSeeker, String confirmPassword) throws MalformedURLException {
 
-            if (!checkNullInfoForJobSeeker(jobSeeker, confirmPassword)) {
-                return new ErrorResult("Eksik bilgiler mevcut. " +
-                        "Tüm boşlukları doldurunuz!");
+            if (!validationJobSeeker(jobSeeker)) {
+                return new ErrorResult("The credentials you entered are incorrect!");
             }
-            /*if (!validationJobSeeker(jobSeeker)) {
-                return new ErrorResult("Girdiğiniz kimlik bilgileri hatalı!");
-            }*/
             if (jobSeekerDao.findByEmail(jobSeeker.getEmail()) != null) {
-                return new ErrorResult("Bu e-posta adresi zaten kayıtlı!");
+                return new ErrorResult("This email address is already registered!");
             }
             if (jobSeekerDao.findByNationalId(jobSeeker.getNationalId()) != null) {
-                return new ErrorResult("Bu kimlik numarası zaten kayıtlı!");
+                return new ErrorResult("This national ID number is already registered!");
             }
             if (!jobSeeker.getPassword().equals(confirmPassword)) {
-                return new ErrorResult("Şifreler uyuşmuyor!");
+                return new ErrorResult("Passwords don't match!");
             }
 
             this.jobSeekerDao.save(jobSeeker);
             /*this.verificationCodeService.generateCode(new VerificationCode(), jobSeeker.getId());
             verificationCode.setVerified(true);*/
-            return new SuccessResult("İş arayan kullanıcı eklendi.");
+            return new SuccessResult("Job seeker saved successfully.");
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        this.jobSeekerDao.deleteById(id);
+        return new SuccessResult("Job seeker deleted successfully.");
     }
 
     @Override
     public DataResult<List<JobSeeker>> getAll() {
         return new SuccessDataResult<>(
                 this.jobSeekerDao.findAll(),
-                "İş arayan kullanıcılar listelendi.");
+                "Job seekers listed successfully.");
     }
 
 }

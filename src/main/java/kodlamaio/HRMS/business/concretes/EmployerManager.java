@@ -6,8 +6,6 @@ import kodlamaio.HRMS.core.utilities.results.*;
 import kodlamaio.HRMS.dataAccess.abstracts.EmployerDao;
 import kodlamaio.HRMS.dataAccess.abstracts.VerificationCodeDao;
 import kodlamaio.HRMS.entities.concretes.Employer;
-import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
-import kodlamaio.HRMS.entities.concretes.JobSeeker;
 import kodlamaio.HRMS.entities.concretes.VerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,24 +56,9 @@ public class EmployerManager implements EmployerService {
         return true;
     }
 
-    public boolean checkNullInfoForEmployer(Employer employer, String confirmPassword) {
-        if (employer.getEmail() != null &&
-            employer.getCompanyName() != null &&
-            employer.getPassword() != null &&
-            employer.getPhoneNumber() != null &&
-            confirmPassword != null) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
-    public Result add(Employer employer, String confirmPassword) {
+    public Result add(Employer employer) {
 
-        if (!checkNullInfoForEmployer(employer, confirmPassword)) {
-            return new ErrorResult("Eksik bilgiler mevcut. " +
-                    "Tüm boşlukları doldurunuz!");
-        }
         if (!checkEmail(employer)) {
             return new ErrorResult("Email hatası!");
         }
@@ -85,19 +68,22 @@ public class EmployerManager implements EmployerService {
         if (employerDao.findByEmail(employer.getEmail()) != null) {
             return new ErrorResult("Bu e-posta adresi zaten kayıtlı!");
         }
-        if (!employer.getPassword().equals(confirmPassword)) {
-            return new ErrorResult("Şifreler uyuşmuyor!");
-        }
 
         this.employerDao.save(employer);
         this.verificationCodeService.generateCode(new VerificationCode(), employer.getId());
-        return new SuccessResult("İş veren eklendi!");
+        return new SuccessResult("Employer saved successfully.");
+    }
+
+    @Override
+    public Result deleteById(int id) {
+        this.employerDao.deleteById(id);
+        return new SuccessResult("Employer deleted successfully.");
     }
 
     @Override
     public DataResult<List<Employer>> getAll() {
         return new SuccessDataResult<List<Employer>>(
                 this.employerDao.findAll(),
-                "İş veren kullanıcılar listelendi!");
+                "Employers listed successfully.");
     }
 }
