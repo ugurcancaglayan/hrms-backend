@@ -1,4 +1,4 @@
-package kodlamaio.HRMS.api;
+package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.JobAdvertisementService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
@@ -44,5 +44,4 @@ public class JobAdvertisementController {
     public DataResult<JobAdvertisement> setJobAdvertisementDisabled(int id) {
         return this.jobAdvertisementService.setJobAdvertisementDisabled(id);
     }
-
 }

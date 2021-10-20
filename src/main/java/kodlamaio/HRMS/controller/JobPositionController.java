@@ -1,4 +1,4 @@
-package kodlamaio.HRMS.api;
+package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.JobPositionService;
 import kodlamaio.HRMS.core.services.mernisService.MernisService;
@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobpositions")
-public class JobPositionsController extends MernisService {
+public class JobPositionController extends MernisService {
 
     private JobPositionService jobPositionService;
 
     @Autowired
-    public JobPositionsController(JobPositionService jobPositionService) {
+    public JobPositionController(JobPositionService jobPositionService) {
         this.jobPositionService = jobPositionService;
     }
 
@@ -26,7 +26,7 @@ public class JobPositionsController extends MernisService {
         return this.jobPositionService.add(jobPosition);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result deleteById(@RequestParam int id) {
         return this.jobPositionService.deleteById(id);
     }
