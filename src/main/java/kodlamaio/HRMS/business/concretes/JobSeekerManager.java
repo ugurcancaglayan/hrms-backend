@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -41,9 +40,9 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public Result add(JobSeeker jobSeeker, String confirmPassword) throws MalformedURLException {
 
-            if (!validationJobSeeker(jobSeeker)) {
+            /*if (!validationJobSeeker(jobSeeker)) {
                 return new ErrorResult("The credentials you entered are incorrect!");
-            }
+            }*/
             if (jobSeekerDao.findByEmail(jobSeeker.getEmail()) != null) {
                 return new ErrorResult("This email address is already registered!");
             }
@@ -71,6 +70,13 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessDataResult<>(
                 this.jobSeekerDao.findAll(),
                 "Job seekers listed successfully.");
+    }
+
+    @Override
+    public DataResult<JobSeeker> findByEmailAndPassword(String email, String password) {
+        return new SuccessDataResult<>(
+                this.jobSeekerDao.findByEmailAndPassword(email, password),
+                "Job seeker listed successfully.");
     }
 
 }

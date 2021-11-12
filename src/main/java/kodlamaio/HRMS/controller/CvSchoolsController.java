@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cvSchools/")
+@CrossOrigin
 public class CvSchoolsController {
 
     private CvSchoolsService cvService;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobAdvertisements/")
+@CrossOrigin
 public class JobAdvertisementController {
 
     private JobAdvertisementService jobAdvertisementService;
@@ -25,6 +26,11 @@ public class JobAdvertisementController {
         return this.jobAdvertisementService.add(jobAdvertisement);
     }
 
+    @GetMapping("getById")
+    public DataResult<JobAdvertisement> getById(@RequestParam int id) {
+        return this.jobAdvertisementService.getById(id);
+    }
+
     @GetMapping("getAllActive")
     public DataResult<List<JobAdvertisement>> findAllByIsActive( ) {
         return this.jobAdvertisementService.findAllByIsActive();
@@ -36,7 +42,7 @@ public class JobAdvertisementController {
     }
 
     @GetMapping("getEmployersActiveJobAdvertisement")
-    public DataResult<List<JobAdvertisement>> getEmployersActiveJobAdvertisement(int id) {
+    public DataResult<List<JobAdvertisement>> getEmployersActiveJobAdvertisement(@RequestParam int id) {
         return this.jobAdvertisementService.getEmployersActiveJobAdvertisement(id);
     }
 
@@ -44,4 +50,10 @@ public class JobAdvertisementController {
     public DataResult<JobAdvertisement> setJobAdvertisementDisabled(int id) {
         return this.jobAdvertisementService.setJobAdvertisementDisabled(id);
     }
+
+    @GetMapping("filterJobs")
+    public DataResult<List<JobAdvertisement>> filterJobs(@RequestParam int cityId, @RequestParam int workTimeId, @RequestParam int workTypeId) {
+        return this.jobAdvertisementService.filterJobs(cityId, workTimeId, workTypeId);
+    }
+
 }

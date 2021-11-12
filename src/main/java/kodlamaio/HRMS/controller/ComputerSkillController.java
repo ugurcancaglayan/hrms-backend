@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/computerSkill/")
+@CrossOrigin
 public class ComputerSkillController {
 
     private ComputerSkillService cvService;

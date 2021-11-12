@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/jobseekers")
+@CrossOrigin
 public class JobSeekerController {
 
     private JobSeekerService jobSeekerService;
@@ -37,4 +38,8 @@ public class JobSeekerController {
         return this.jobSeekerService.getAll();
     }
 
+    @GetMapping("/findByEmailAndPassword")
+    public DataResult<JobSeeker> findByEmailAndPassword(@RequestParam String email, @RequestParam String password) {
+        return jobSeekerService.findByEmailAndPassword(email, password);
+    }
 }

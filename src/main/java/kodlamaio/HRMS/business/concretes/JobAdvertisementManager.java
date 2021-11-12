@@ -8,7 +8,10 @@ import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
@@ -25,6 +28,13 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     public Result add(JobAdvertisement jobAdvertisement) {
         this.jobAdvertisementDao.save(jobAdvertisement);
         return new SuccessResult("Job advertisement saved successfully.");
+    }
+
+    @Override
+    public DataResult<JobAdvertisement> getById(int id) {
+        return new SuccessDataResult<JobAdvertisement>(
+                this.jobAdvertisementDao.getById(id),
+                "Job advertisement listed successfully.");
     }
 
     @Override
@@ -65,5 +75,26 @@ public class JobAdvertisementManager implements JobAdvertisementService {
         jobAdvertisement.setActive(false);
         return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.save(jobAdvertisement),
                 "Job advertisement is set to passive.");
+    }
+
+    @Override
+    public DataResult<List<JobAdvertisement>> filterJobs(int cityId, int workTimeId, int workTypeId) {
+        List<JobAdvertisement> result = new ArrayList<JobAdvertisement>();
+
+        Stream<JobAdvertisement> stream = findAllByIsActive().getData().stream();
+
+        Predicate<JobAdvertisement> cityCondition = cityId != 0
+                ? (jobAdvertisement -> jobAdvertisement.getCity().getId() == cityId)
+                : (jobAdvertisement -> jobAdvertisement.getCity().getId() > 0);
+        Predicate<JobAdvertisement> workTimeCondition = workTimeId != 0
+                ? (jobAdvertisement -> jobAdvertisement.getWorkTime().getId() == workTimeId)
+                : (jobAdvertisement -> jobAdvertisement.getWorkTime().getId() > 0);
+        Predicate<JobAdvertisement> workTypeCondition = workTypeId != 0
+                ? (jobAdvertisement -> jobAdvertisement.getWorkType().getId() == workTypeId)
+                : (jobAdvertisement -> jobAdvertisement.getWorkType().getId() > 0);
+
+        stream.filter(cityCondition).filter(workTimeCondition).filter(workTypeCondition).forEach(jobAdvertisement -> result.add(jobAdvertisement));
+
+        return new SuccessDataResult<List<JobAdvertisement>>(result);
     }
 }

@@ -11,4 +11,5 @@ public interface JobSeekerService {
     Result add(JobSeeker jobSeeker, String confirmPassword) throws MalformedURLException;
     Result deleteById(int id);
     DataResult<List<JobSeeker>> getAll();
+    DataResult<JobSeeker> findByEmailAndPassword(String email, String password);
 }

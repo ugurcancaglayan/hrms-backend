@@ -33,10 +33,10 @@ public class EmployerManager implements EmployerService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(employer.getEmail());
         if (!matcher.matches()) {
-            new ErrorResult("Geçersiz Email Adresi");
+            new ErrorResult("Invalid email address!");
             return false;
         } else if (!employer.getEmail().contains(employer.getWebSite())) {
-            new ErrorResult("Domain adresi girmek zorundasınız");
+            new ErrorResult("You have to enter the domain address!");
             return false;
         }
         return true;
@@ -60,13 +60,13 @@ public class EmployerManager implements EmployerService {
     public Result add(Employer employer) {
 
         if (!checkEmail(employer)) {
-            return new ErrorResult("Email hatası!");
+            return new ErrorResult("Enter the email format correctly!");
         }
         if (!checkPhoneNumber(employer)) {
-            return new ErrorResult("Geçerli bir telefon numarası giriniz!");
+            return new ErrorResult("Please enter a valid phone number!");
         }
         if (employerDao.findByEmail(employer.getEmail()) != null) {
-            return new ErrorResult("Bu e-posta adresi zaten kayıtlı!");
+            return new ErrorResult("This email address is already registered!");
         }
 
         this.employerDao.save(employer);
@@ -85,5 +85,12 @@ public class EmployerManager implements EmployerService {
         return new SuccessDataResult<List<Employer>>(
                 this.employerDao.findAll(),
                 "Employers listed successfully.");
+    }
+
+    @Override
+    public DataResult<Employer> findByEmailAndPassword(String email, String password) {
+        return new SuccessDataResult<>(
+                this.employerDao.findByEmailAndPassword(email, password),
+                "Employer listed successfully.");
     }
 }

@@ -1,5 +1,6 @@
 package kodlamaio.HRMS.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "job_advertisements")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class JobAdvertisement {
 
     @Id
@@ -39,6 +41,14 @@ public class JobAdvertisement {
 
     @Column(name = "is_active")
     private boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "work_type_id")
+    private WorkType workType;
+
+    @ManyToOne
+    @JoinColumn(name = "work_time_id")
+    private WorkTime workTime;
 
     @ManyToOne
     @JoinColumn(name = "employer_id")

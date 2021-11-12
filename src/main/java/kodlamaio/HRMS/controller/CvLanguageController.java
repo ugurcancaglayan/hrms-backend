@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cvLanguage/")
+@CrossOrigin
 public class CvLanguageController {
 
     private CvLanguageService cvService;

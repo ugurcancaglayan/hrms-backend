@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cvJobExperince/")
+@CrossOrigin
 public class CvJobExperienceController {
 
     private CvJobExperienceService cvService;

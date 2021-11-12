@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/verificationCodes/")
+@CrossOrigin
 public class VerificationCodeController {
 
     private VerificationCodeService verificationCodeService;

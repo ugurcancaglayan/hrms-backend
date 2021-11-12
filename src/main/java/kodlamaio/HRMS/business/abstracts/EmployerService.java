@@ -10,4 +10,5 @@ public interface EmployerService {
     Result add(Employer employer);
     Result deleteById(int id);
     DataResult<List<Employer>> getAll();
+    DataResult<Employer> findByEmailAndPassword(String email, String password);
 }

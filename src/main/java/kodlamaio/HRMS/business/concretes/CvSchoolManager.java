@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CvSchoolsManager implements CvSchoolsService {
+public class CvSchoolManager implements CvSchoolsService {
 
     private CvSchoolsDao cvSchoolsDao;
     private DtoConverterService dtoConverterService;
 
     @Autowired
-    public CvSchoolsManager(CvSchoolsDao cvSchoolsDao, DtoConverterService dtoConverterService) {
+    public CvSchoolManager(CvSchoolsDao cvSchoolsDao, DtoConverterService dtoConverterService) {
         this.cvSchoolsDao = cvSchoolsDao;
         this.dtoConverterService = dtoConverterService;
     }
