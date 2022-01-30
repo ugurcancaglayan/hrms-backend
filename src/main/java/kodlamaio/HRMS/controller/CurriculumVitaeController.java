@@ -23,7 +23,7 @@ public class CurriculumVitaeController {
 
     @PostMapping("add")
     public ResponseEntity<?> add(@Valid @RequestBody CvDto cvDto) {
-        return ResponseEntity.ok(this.cvService. add(cvDto));
+        return ResponseEntity.ok(this.cvService.add(cvDto));
     }
 
     @DeleteMapping("delete")
