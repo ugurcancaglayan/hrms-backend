@@ -1,30 +1,25 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.CvSchoolsService;
-import kodlamaio.HRMS.core.services.converter.DtoConverterService;
+import kodlamaio.HRMS.dto.mapper.DtoConverterService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.CvSchoolsDao;
-import kodlamaio.HRMS.entities.concretes.CvSchool;
-import kodlamaio.HRMS.entities.dtos.CvSchoolDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.CvSchoolsDao;
+import kodlamaio.HRMS.model.CvSchool;
+import kodlamaio.HRMS.dto.model.CvSchoolDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CvSchoolManager implements CvSchoolsService {
 
-    private CvSchoolsDao cvSchoolsDao;
-    private DtoConverterService dtoConverterService;
-
-    @Autowired
-    public CvSchoolManager(CvSchoolsDao cvSchoolsDao, DtoConverterService dtoConverterService) {
-        this.cvSchoolsDao = cvSchoolsDao;
-        this.dtoConverterService = dtoConverterService;
-    }
+    private final CvSchoolsDao cvSchoolsDao;
+    private final DtoConverterService dtoConverterService;
 
     @Override
     public Result add(CvSchoolDto cvSchool) {

@@ -1,30 +1,25 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.CvJobExperienceService;
-import kodlamaio.HRMS.core.services.converter.DtoConverterService;
+import kodlamaio.HRMS.dto.mapper.DtoConverterService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.CvJobExperienceDao;
-import kodlamaio.HRMS.entities.concretes.CvJobExperince;
-import kodlamaio.HRMS.entities.dtos.CvJobExperienceDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.CvJobExperienceDao;
+import kodlamaio.HRMS.model.CvJobExperince;
+import kodlamaio.HRMS.dto.model.CvJobExperienceDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CvJobExperienceManager implements CvJobExperienceService {
 
-    private CvJobExperienceDao cvJobExperienceDao;
-    private DtoConverterService dtoConverterService;
-
-    @Autowired
-    public CvJobExperienceManager(CvJobExperienceDao cvJobExperienceDao, DtoConverterService dtoConverterService) {
-        this.cvJobExperienceDao = cvJobExperienceDao;
-        this.dtoConverterService = dtoConverterService;
-    }
+    private final CvJobExperienceDao cvJobExperienceDao;
+    private final DtoConverterService dtoConverterService;
 
     @Override
     public Result add(CvJobExperienceDto cvJobExperince) {

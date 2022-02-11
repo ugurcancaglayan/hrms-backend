@@ -2,8 +2,8 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.CurriculumVitae;
-import kodlamaio.HRMS.entities.dtos.CvDto;
+import kodlamaio.HRMS.model.CurriculumVitae;
+import kodlamaio.HRMS.dto.model.CvDto;
 
 import java.util.List;
 

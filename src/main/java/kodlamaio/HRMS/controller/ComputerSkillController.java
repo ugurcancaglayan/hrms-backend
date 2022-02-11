@@ -2,25 +2,22 @@ package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.ComputerSkillService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.CvComputerSkill;
-import kodlamaio.HRMS.entities.dtos.CvComputerSkillDto;
+import kodlamaio.HRMS.model.CvComputerSkill;
+import kodlamaio.HRMS.dto.model.CvComputerSkillDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/computerSkill/")
 @CrossOrigin
 public class ComputerSkillController {
 
-    private ComputerSkillService cvService;
-
-    public ComputerSkillController(ComputerSkillService cvService) {
-        this.cvService = cvService;
-    }
+    private final ComputerSkillService cvService;
 
     @PostMapping("add")
     public ResponseEntity<?> add(@Valid @RequestBody CvComputerSkillDto computerSkill) {

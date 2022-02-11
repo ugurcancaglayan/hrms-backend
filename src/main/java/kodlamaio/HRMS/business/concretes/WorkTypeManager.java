@@ -5,22 +5,18 @@ import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.WorkTypeDao;
-import kodlamaio.HRMS.entities.concretes.WorkType;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.WorkTypeDao;
+import kodlamaio.HRMS.model.WorkType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class WorkTypeManager implements WorkTypeService {
 
-    @Autowired
-    private WorkTypeDao workTypeDao;
-
-    public WorkTypeManager(WorkTypeDao workTypeDao) {
-        this.workTypeDao = workTypeDao;
-    }
+    private final WorkTypeDao workTypeDao;
 
     @Override
     public Result add(WorkType workType) {

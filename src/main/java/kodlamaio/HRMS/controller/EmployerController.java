@@ -2,24 +2,21 @@ package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.EmployerService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.Employer;
-import kodlamaio.HRMS.entities.concretes.JobSeeker;
+import kodlamaio.HRMS.model.Employer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/employers/")
 @CrossOrigin
 public class EmployerController {
 
-    private EmployerService employerService;
-
-    public EmployerController(EmployerService employerService) {
-        this.employerService = employerService;
-    }
+    private final EmployerService employerService;
 
     @PostMapping(value = "add")
     public ResponseEntity<?> add(@Valid @RequestBody Employer employer) {

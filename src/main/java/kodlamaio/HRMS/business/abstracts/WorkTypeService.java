@@ -2,7 +2,7 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.WorkType;
+import kodlamaio.HRMS.model.WorkType;
 
 import java.util.List;
 

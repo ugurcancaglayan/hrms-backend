@@ -1,32 +1,25 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.CurriculumVitaeService;
-import kodlamaio.HRMS.core.services.converter.DtoConverterManager;
-import kodlamaio.HRMS.core.services.converter.DtoConverterService;
+import kodlamaio.HRMS.dto.mapper.DtoConverterService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.CurriculumVitaeDao;
-import kodlamaio.HRMS.entities.concretes.CurriculumVitae;
-import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
-import kodlamaio.HRMS.entities.dtos.CvDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.CurriculumVitaeDao;
+import kodlamaio.HRMS.model.CurriculumVitae;
+import kodlamaio.HRMS.dto.model.CvDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CurriculumVitaeManager implements CurriculumVitaeService {
 
-    private CurriculumVitaeDao curriculumVitaeDAO;
-    private DtoConverterService dtoConverterService;
-
-    @Autowired
-    public CurriculumVitaeManager(CurriculumVitaeDao curriculumVitaeDAO, DtoConverterService dtoConverterService) {
-        this.curriculumVitaeDAO = curriculumVitaeDAO;
-        this.dtoConverterService = dtoConverterService;
-    }
+    private final CurriculumVitaeDao curriculumVitaeDAO;
+    private final DtoConverterService dtoConverterService;
 
     @Override
     public Result add(CvDto cvDto) {

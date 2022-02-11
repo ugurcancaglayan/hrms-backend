@@ -3,30 +3,24 @@ package kodlamaio.HRMS.business.concretes;
 import kodlamaio.HRMS.business.abstracts.EmployerService;
 import kodlamaio.HRMS.business.abstracts.VerificationCodeService;
 import kodlamaio.HRMS.core.utilities.results.*;
-import kodlamaio.HRMS.dataAccess.abstracts.EmployerDao;
-import kodlamaio.HRMS.dataAccess.abstracts.VerificationCodeDao;
-import kodlamaio.HRMS.entities.concretes.Employer;
-import kodlamaio.HRMS.entities.concretes.VerificationCode;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.EmployerDao;
+import kodlamaio.HRMS.repository.VerificationCodeDao;
+import kodlamaio.HRMS.model.Employer;
+import kodlamaio.HRMS.model.VerificationCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 @Service
 public class EmployerManager implements EmployerService {
 
-    private EmployerDao employerDao;
-    private VerificationCodeService verificationCodeService;
-    private VerificationCodeDao verificationCodeDao;
-
-    @Autowired
-    public EmployerManager(EmployerDao employerDao, VerificationCodeService verificationCodeService, VerificationCodeDao verificationCodeDao) {
-        this.employerDao = employerDao;
-        this.verificationCodeService = verificationCodeService;
-        this.verificationCodeDao = verificationCodeDao;
-    }
+    private final EmployerDao employerDao;
+    private final VerificationCodeService verificationCodeService;
+    private final VerificationCodeDao verificationCodeDao;
 
     public boolean checkEmail(Employer employer) {
         String regex = "^(.+)@(.+)$";

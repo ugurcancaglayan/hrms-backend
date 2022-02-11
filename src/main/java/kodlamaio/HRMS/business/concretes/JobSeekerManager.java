@@ -4,27 +4,23 @@ import kodlamaio.HRMS.business.abstracts.JobSeekerService;
 import kodlamaio.HRMS.business.abstracts.VerificationCodeService;
 import kodlamaio.HRMS.core.services.mernisService.MernisService;
 import kodlamaio.HRMS.core.utilities.results.*;
-import kodlamaio.HRMS.dataAccess.abstracts.JobSeekerDao;
-import kodlamaio.HRMS.entities.concretes.JobSeeker;
-import kodlamaio.HRMS.entities.concretes.VerificationCode;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.JobSeekerDao;
+import kodlamaio.HRMS.model.JobSeeker;
+import kodlamaio.HRMS.model.VerificationCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class JobSeekerManager implements JobSeekerService {
 
-    private JobSeekerDao jobSeekerDao;
-    private VerificationCodeService verificationCodeService;
-    VerificationCode verificationCode = new VerificationCode();
+    private final JobSeekerDao jobSeekerDao;
+    private final VerificationCodeService verificationCodeService;
 
-    @Autowired
-    public JobSeekerManager(JobSeekerDao jobSeekerDao, VerificationCodeService verificationCodeService) {
-        this.jobSeekerDao = jobSeekerDao;
-        this.verificationCodeService = verificationCodeService;
-    }
+    VerificationCode verificationCode = new VerificationCode();
 
     public boolean validationJobSeeker(JobSeeker jobSeeker) throws MalformedURLException {
         if (new MernisService().validatePersonalInfo(
@@ -40,9 +36,9 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public Result add(JobSeeker jobSeeker, String confirmPassword) throws MalformedURLException {
 
-            /*if (!validationJobSeeker(jobSeeker)) {
+            if (!validationJobSeeker(jobSeeker)) {
                 return new ErrorResult("The credentials you entered are incorrect!");
-            }*/
+            }
             if (jobSeekerDao.findByEmail(jobSeeker.getEmail()) != null) {
                 return new ErrorResult("This email address is already registered!");
             }

@@ -2,22 +2,18 @@ package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.JobPositionService;
 import kodlamaio.HRMS.core.utilities.results.*;
-import kodlamaio.HRMS.dataAccess.abstracts.JobPositionDao;
-import kodlamaio.HRMS.entities.concretes.JobPosition;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.JobPositionDao;
+import kodlamaio.HRMS.model.JobPosition;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class JobPositionManager implements JobPositionService {
 
-    private JobPositionDao jobPositionDao;
-
-    @Autowired
-    public JobPositionManager(JobPositionDao jobPositionDao) {
-        this.jobPositionDao = jobPositionDao;
-    }
+    private final JobPositionDao jobPositionDao;
 
     @Override
     public Result add(JobPosition jobPosition) {

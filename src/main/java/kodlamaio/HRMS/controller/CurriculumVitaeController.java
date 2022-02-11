@@ -2,24 +2,22 @@ package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.CurriculumVitaeService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.CurriculumVitae;
-import kodlamaio.HRMS.entities.dtos.CvDto;
+import kodlamaio.HRMS.model.CurriculumVitae;
+import kodlamaio.HRMS.dto.model.CvDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/cvs/")
 @CrossOrigin
 public class CurriculumVitaeController {
 
-    private CurriculumVitaeService cvService;
-
-    public CurriculumVitaeController(CurriculumVitaeService cvService) {
-        this.cvService = cvService;
-    }
+    private final CurriculumVitaeService cvService;
 
     @PostMapping("add")
     public ResponseEntity<?> add(@Valid @RequestBody CvDto cvDto) {

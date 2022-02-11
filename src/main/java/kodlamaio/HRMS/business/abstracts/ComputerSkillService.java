@@ -2,8 +2,8 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.CvComputerSkill;
-import kodlamaio.HRMS.entities.dtos.CvComputerSkillDto;
+import kodlamaio.HRMS.model.CvComputerSkill;
+import kodlamaio.HRMS.dto.model.CvComputerSkillDto;
 
 import java.util.List;
 

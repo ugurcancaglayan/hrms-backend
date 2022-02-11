@@ -2,10 +2,10 @@ package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.JobAdvertisementService;
 import kodlamaio.HRMS.core.utilities.results.*;
-import kodlamaio.HRMS.dataAccess.abstracts.EmployerDao;
-import kodlamaio.HRMS.dataAccess.abstracts.JobAdvertisementDao;
-import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.EmployerDao;
+import kodlamaio.HRMS.repository.JobAdvertisementDao;
+import kodlamaio.HRMS.model.JobAdvertisement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,16 +13,12 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+@RequiredArgsConstructor
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
 
-    private JobAdvertisementDao jobAdvertisementDao;
-    private EmployerDao employerDao;
-
-    @Autowired
-    public JobAdvertisementManager(JobAdvertisementDao jobAdvertisementDao) {
-        this.jobAdvertisementDao = jobAdvertisementDao;
-    }
+    private final JobAdvertisementDao jobAdvertisementDao;
+    private final EmployerDao employerDao;
 
     @Override
     public Result add(JobAdvertisement jobAdvertisement) {

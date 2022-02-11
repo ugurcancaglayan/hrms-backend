@@ -2,9 +2,7 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.JobPosition;
-import kodlamaio.HRMS.entities.concretes.JobSeeker;
-import org.springframework.stereotype.Service;
+import kodlamaio.HRMS.model.JobPosition;
 
 import java.util.List;
 

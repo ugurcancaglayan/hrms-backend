@@ -1,7 +1,7 @@
 package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.City;
+import kodlamaio.HRMS.model.City;
 
 import java.util.List;
 

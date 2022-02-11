@@ -2,8 +2,8 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.CvLanguage;
-import kodlamaio.HRMS.entities.dtos.CvLanguageDto;
+import kodlamaio.HRMS.model.CvLanguage;
+import kodlamaio.HRMS.dto.model.CvLanguageDto;
 
 import java.util.List;
 

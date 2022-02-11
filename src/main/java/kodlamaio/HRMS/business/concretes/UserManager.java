@@ -2,22 +2,18 @@ package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.UserService;
 import kodlamaio.HRMS.core.utilities.results.*;
-import kodlamaio.HRMS.dataAccess.abstracts.UserDao;
-import kodlamaio.HRMS.entities.concretes.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.UserDao;
+import kodlamaio.HRMS.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class UserManager implements UserService {
 
-    private UserDao userDao;
-
-    @Autowired
-    public UserManager(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    private final UserDao userDao;
 
     @Override
     public Result add(User user) {

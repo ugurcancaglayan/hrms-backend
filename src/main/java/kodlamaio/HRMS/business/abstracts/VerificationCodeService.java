@@ -2,7 +2,7 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.VerificationCode;
+import kodlamaio.HRMS.model.VerificationCode;
 
 import java.util.List;
 

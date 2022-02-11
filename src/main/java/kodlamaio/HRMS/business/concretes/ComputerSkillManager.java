@@ -1,30 +1,25 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.ComputerSkillService;
-import kodlamaio.HRMS.core.services.converter.DtoConverterService;
+import kodlamaio.HRMS.dto.mapper.DtoConverterService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.ComputerSkillDao;
-import kodlamaio.HRMS.entities.concretes.CvComputerSkill;
-import kodlamaio.HRMS.entities.dtos.CvComputerSkillDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.ComputerSkillDao;
+import kodlamaio.HRMS.model.CvComputerSkill;
+import kodlamaio.HRMS.dto.model.CvComputerSkillDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ComputerSkillManager implements ComputerSkillService {
 
-    private ComputerSkillDao computerSkillDao;
-    private DtoConverterService dtoConverterService;
-
-    @Autowired
-    public ComputerSkillManager(ComputerSkillDao computerSkillDao, DtoConverterService dtoConverterService) {
-        this.computerSkillDao = computerSkillDao;
-        this.dtoConverterService = dtoConverterService;
-    }
+    private final ComputerSkillDao computerSkillDao;
+    private final DtoConverterService dtoConverterService;
 
     @Override
     public Result add(CvComputerSkillDto computerSkill) {

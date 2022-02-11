@@ -3,23 +3,20 @@ package kodlamaio.HRMS.controller;
 import kodlamaio.HRMS.business.abstracts.JobAdvertisementService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.JobAdvertisement;
+import kodlamaio.HRMS.model.JobAdvertisement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/jobAdvertisements/")
 @CrossOrigin
 public class JobAdvertisementController {
 
-    private JobAdvertisementService jobAdvertisementService;
-
-    @Autowired
-    public JobAdvertisementController(JobAdvertisementService jobAdvertisementService) {
-        this.jobAdvertisementService = jobAdvertisementService;
-    }
+    private final JobAdvertisementService jobAdvertisementService;
 
     @PostMapping("add")
     public Result add(@RequestBody JobAdvertisement jobAdvertisement) {

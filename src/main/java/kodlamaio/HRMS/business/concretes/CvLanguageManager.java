@@ -1,30 +1,25 @@
 package kodlamaio.HRMS.business.concretes;
 
 import kodlamaio.HRMS.business.abstracts.CvLanguageService;
-import kodlamaio.HRMS.core.services.converter.DtoConverterService;
+import kodlamaio.HRMS.dto.mapper.DtoConverterService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.CvLanguageDao;
-import kodlamaio.HRMS.entities.concretes.CvLanguage;
-import kodlamaio.HRMS.entities.dtos.CvLanguageDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.CvLanguageDao;
+import kodlamaio.HRMS.model.CvLanguage;
+import kodlamaio.HRMS.dto.model.CvLanguageDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CvLanguageManager implements CvLanguageService {
 
-    private CvLanguageDao cvLanguageDao;
-    private DtoConverterService dtoConverterService;
-
-    @Autowired
-    public CvLanguageManager(CvLanguageDao cvLanguageDao, DtoConverterService dtoConverterService) {
-        this.cvLanguageDao = cvLanguageDao;
-        this.dtoConverterService = dtoConverterService;
-    }
+    private final CvLanguageDao cvLanguageDao;
+    private final DtoConverterService dtoConverterService;
 
     @Override
     public Result add(CvLanguageDto cvLanguage) {

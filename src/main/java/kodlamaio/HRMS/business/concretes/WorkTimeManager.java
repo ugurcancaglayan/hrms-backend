@@ -5,22 +5,18 @@ import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
 import kodlamaio.HRMS.core.utilities.results.SuccessDataResult;
 import kodlamaio.HRMS.core.utilities.results.SuccessResult;
-import kodlamaio.HRMS.dataAccess.abstracts.WorkTimeDao;
-import kodlamaio.HRMS.entities.concretes.WorkTime;
-import org.springframework.beans.factory.annotation.Autowired;
+import kodlamaio.HRMS.repository.WorkTimeDao;
+import kodlamaio.HRMS.model.WorkTime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class WorkTimeManager implements WorkTimeService {
 
-    @Autowired
-    private WorkTimeDao workTimeDao;
-
-    public WorkTimeManager(WorkTimeDao workTimeDao) {
-        this.workTimeDao = workTimeDao;
-    }
+    private final WorkTimeDao workTimeDao;
 
     @Override
     public Result add(WorkTime workTime) {

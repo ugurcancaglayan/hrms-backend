@@ -2,7 +2,7 @@ package kodlamaio.HRMS.business.abstracts;
 
 import kodlamaio.HRMS.core.utilities.results.DataResult;
 import kodlamaio.HRMS.core.utilities.results.Result;
-import kodlamaio.HRMS.entities.concretes.JobSeeker;
+import kodlamaio.HRMS.model.JobSeeker;
 
 import java.net.MalformedURLException;
 import java.util.List;

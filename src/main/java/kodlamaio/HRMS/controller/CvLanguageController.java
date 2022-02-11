@@ -2,24 +2,22 @@ package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.CvLanguageService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.CvLanguage;
-import kodlamaio.HRMS.entities.dtos.CvLanguageDto;
+import kodlamaio.HRMS.model.CvLanguage;
+import kodlamaio.HRMS.dto.model.CvLanguageDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/cvLanguage/")
 @CrossOrigin
 public class CvLanguageController {
 
-    private CvLanguageService cvService;
-
-    public CvLanguageController(CvLanguageService cvService) {
-        this.cvService = cvService;
-    }
+    private final CvLanguageService cvService;
 
     @PostMapping("add")
     public ResponseEntity<?> add(@Valid @RequestBody CvLanguageDto cvLanguage) {

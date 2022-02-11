@@ -2,7 +2,8 @@ package kodlamaio.HRMS.controller;
 
 import kodlamaio.HRMS.business.abstracts.CityService;
 import kodlamaio.HRMS.core.utilities.results.DataResult;
-import kodlamaio.HRMS.entities.concretes.City;
+import kodlamaio.HRMS.model.City;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/city/")
 @CrossOrigin
 public class CityController {
 
-    private CityService cityService;
-
-    @Autowired
-    public CityController(CityService cityService) {
-        this.cityService = cityService;
-    }
+    private final CityService cityService;
 
     @GetMapping("getAll")
     public DataResult<List<City>> getAll( ) {
